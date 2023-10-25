@@ -1,11 +1,8 @@
 import React from "react";
+import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
-    return (
-        <React.Fragment>
-            <h1 className="font-bold text-4xl text-violet-800">Hello world</h1>
-        </React.Fragment>
-    );
+    return <MainPage />;
 }
 
 export default App;

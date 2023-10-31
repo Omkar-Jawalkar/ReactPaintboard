@@ -1,48 +1,74 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Canvasboard = () => {
-   const canvasRef = useRef();
-   const xCoordinateRef = useRef();
-   const yCoordinateRef = useRef();
+   const canvasRef = useRef(null);
+   const canvasContextRef = useRef(null);
+   const [drawing, setDrawing] = useState(false);
 
-   const drawSomething = () => {
-      const ctx = canvasRef.current.getContext('2d');
-      ctx.fillStyle = 'green';
-      ctx.fillRect(10, 10, 10, 10);
+   const startDrawing = ({ nativeEvent }) => {
+      const { offsetX, offsetY } = nativeEvent;
+      canvasContextRef.current.beginPath();
+      canvasContextRef.current.moveTo(offsetX, offsetY);
+      setDrawing(true);
    };
 
-   const getCoordinates = (event) => {
-      xCoordinateRef.current = event.clientX;
-      yCoordinateRef.current = event.clientY;
+   const finishDrawing = () => {
+      canvasContextRef.current.closePath();
+      setDrawing(false);
+   };
+
+   const draw = ({ nativeEvent }) => {
+      if (!drawing) {
+         return;
+      }
+      const { offsetX, offsetY } = nativeEvent;
+      canvasContextRef.current.lineTo(offsetX, offsetY);
+      canvasContextRef.current.stroke();
    };
 
    useEffect(() => {
-      console.log(xCoordinateRef.current);
-      console.log(yCoordinateRef.current);
-   }, [xCoordinateRef, yCoordinateRef]);
+      const canvas = canvasRef.current;
+      const canvasContext = canvas.getContext('2d');
+      canvasContext.lineCap = 'round';
+      canvasContext.strokeStyle = 'black';
+      canvasContext.lineWidth = 5;
+      canvasContextRef.current = canvasContext;
+
+      // Resize the canvas to match its container's dimensions
+      const resizeCanvas = () => {
+         canvas.width = canvas.parentNode.offsetWidth;
+         canvas.height = canvas.parentNode.offsetHeight;
+      };
+
+      // Attach a listener to resize the canvas when the window is resized
+      window.addEventListener('resize', resizeCanvas);
+
+      // Initialize the canvas size
+      resizeCanvas();
+
+      return () => {
+         // Remove the resize event listener when the component unmounts
+         window.removeEventListener('resize', resizeCanvas);
+      };
+   }, []);
 
    return (
-      <div className="w-full p-4  h-24">
-         <div className="flex justify-between p-4 ">
-            <h1 className="text-center pb-6 text-xl">Canvas board</h1>
-            <h3>
-               X Coordinate - {xCoordinateRef.current} and Y Coordinate -{' '}
-               {yCoordinateRef.current}{' '}
-            </h3>
-            <button
-               type="button"
-               className="px-6 text-blue-900  bg-blue-300 rounded-md shadow-md "
-               onClick={() => drawSomething()}
-            >
-               Draw something
-            </button>
-         </div>
-
+      <div
+         style={{
+            height: '1200px',
+            width: '100%',
+            position: 'relative',
+         }}
+      >
          <canvas
-            className="w-full hover:cursor-crosshair min-h-full border-black border-2 border-solid"
+            height={'100%'}
+            width={'100%'}
             ref={canvasRef}
-            onMouseMove={(event) => getCoordinates(event)}
-         />
+            className="border-yellow-200 border-solid border-2"
+            onMouseDown={startDrawing}
+            onMouseUp={finishDrawing}
+            onMouseMove={draw}
+         ></canvas>
       </div>
    );
 };

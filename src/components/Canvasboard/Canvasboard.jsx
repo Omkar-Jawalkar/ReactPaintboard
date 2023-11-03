@@ -53,18 +53,10 @@ const Canvasboard = () => {
    }, []);
 
    return (
-      <div
-         style={{
-            height: '1200px',
-            width: '100%',
-            position: 'relative',
-         }}
-      >
+      <div style={{}}>
          <canvas
-            height={'100%'}
-            width={'100%'}
             ref={canvasRef}
-            className="border-yellow-200 border-solid border-2"
+            className="border-black-200  border-solid border-2"
             onMouseDown={startDrawing}
             onMouseUp={finishDrawing}
             onMouseMove={draw}

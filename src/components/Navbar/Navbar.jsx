@@ -3,9 +3,9 @@ import { WiStars } from 'react-icons/wi';
 
 const Navbar = () => {
    return (
-      <div className="flex justify-between p-6 h-full bg-blue-50">
+      <div className="flex justify-between p-6 h-full ">
          {/* LEFT SIDE */}
-         <div className="flex space-x-1 ">
+         <div className="flex cursor-pointer space-x-1 ">
             <div className="flex relative">
                <span className=" font-semibold  text-purple-600">Magic</span>
                <WiStars className="text-4xl absolute top-[-0.6rem] left-[9.7rem] text-purple-600 " />

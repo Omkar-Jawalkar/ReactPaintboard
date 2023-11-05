@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar/Navbar';
 
 const MainPage = () => {
    return (
-      <div>
+      <div className="bg-gradient-to-b min-h-screen from-indigo-200">
          <Navbar />
          {/* Canvas Component */}
          <div className="p-4">

@@ -53,10 +53,10 @@ const Canvasboard = () => {
    }, []);
 
    return (
-      <div style={{}}>
+      <div className="min-h-screen h-24 rounded-lg  bg-indigo-100">
          <canvas
             ref={canvasRef}
-            className="border-black-200  border-solid border-2"
+            className="border-indigo-200 border-1"
             onMouseDown={startDrawing}
             onMouseUp={finishDrawing}
             onMouseMove={draw}

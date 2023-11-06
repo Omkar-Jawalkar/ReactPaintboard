@@ -6,6 +6,7 @@ import PaintDataContext from '../../context/PaintDataContext';
 const Navbar = () => {
    const {
       setSelectedColor,
+      selectedColor,
       setLineWidth,
       lineWidth,
       eraserActive,
@@ -37,7 +38,11 @@ const Navbar = () => {
                         onClick={() => {
                            setSelectedColor(color);
                         }}
-                        className={` cursor-pointer p-4 border-2 border-black-300 rounded-full `}
+                        className={` cursor-pointer p-4 border-2  ${
+                           selectedColor === color
+                              ? 'border-indigo-700 transition ease-in-out delay-50'
+                              : 'border-black-300'
+                        } rounded-full `}
                         style={{
                            backgroundColor: color,
                         }}
@@ -63,8 +68,12 @@ const Navbar = () => {
             </div>
 
             <span
-               onClick={() => setEraserActive(!eraserActive)}
-               className="bg-white-300 p-6 h-full  rounded-lg border-solid border-2 shadow-md bg-white border-white cursor-pointer m-4 "
+               onClick={() => {
+                  setEraserActive(!eraserActive);
+               }}
+               className={`bg-white-300 p-6 h-full  ${
+                  eraserActive ? 'shadow-inner' : ' shadow-md'
+               } rounded-lg border-solid border-2 bg-white border-white cursor-pointer m-4`}
             ></span>
          </div>
       </div>

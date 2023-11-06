@@ -6,7 +6,8 @@ const Canvasboard = () => {
    const canvasContextRef = useRef(null);
    const [drawing, setDrawing] = useState(false);
 
-   const { selectedColor, lineWidth } = useContext(PaintDataContext);
+   const { selectedColor, lineWidth, eraserActive } =
+      useContext(PaintDataContext);
 
    const startDrawing = ({ nativeEvent }) => {
       const { offsetX, offsetY } = nativeEvent;
@@ -27,6 +28,19 @@ const Canvasboard = () => {
       const { offsetX, offsetY } = nativeEvent;
       canvasContextRef.current.lineTo(offsetX, offsetY);
       canvasContextRef.current.stroke();
+   };
+
+   const setToDraw = () => {
+      if (canvasContextRef.current) {
+         canvasContextRef.current.globalCompositeOperation = 'source-over';
+         canvasContextRef.current.lineWidth = 2;
+      }
+   };
+   const setToErase = () => {
+      if (canvasContextRef.current) {
+         canvasContextRef.current.globalCompositeOperation = 'destination-out';
+         canvasContextRef.current.lineWidth = 50;
+      }
    };
 
    useEffect(() => {
@@ -59,14 +73,25 @@ const Canvasboard = () => {
       if (canvasContextRef.current) {
          canvasContextRef.current.strokeStyle = selectedColor;
          canvasContextRef.current.lineWidth = lineWidth;
+         setToDraw();
       }
    }, [selectedColor, lineWidth]);
+
+   useEffect(() => {
+      if (eraserActive) {
+         setToErase();
+      } else {
+         setToDraw();
+      }
+   }, [eraserActive]);
 
    return (
       <div className="min-h-screen h-24 rounded-lg  bg-indigo-100">
          <canvas
             ref={canvasRef}
-            className="border-indigo-200 border-1"
+            className={`border-indigo-200 border-1 ${
+               eraserActive ? 'cursor-fancy' : 'cursor-crosshair'
+            } `}
             onMouseDown={startDrawing}
             onMouseUp={finishDrawing}
             onMouseMove={draw}

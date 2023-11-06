@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import PaintDataContext from '../../context/PaintDataContext';
 
 const Canvasboard = () => {
@@ -6,7 +6,7 @@ const Canvasboard = () => {
    const canvasContextRef = useRef(null);
    const [drawing, setDrawing] = useState(false);
 
-   const { selectedColor } = useContext(PaintDataContext);
+   const { selectedColor, lineWidth } = useContext(PaintDataContext);
 
    const startDrawing = ({ nativeEvent }) => {
       const { offsetX, offsetY } = nativeEvent;
@@ -58,8 +58,9 @@ const Canvasboard = () => {
    useEffect(() => {
       if (canvasContextRef.current) {
          canvasContextRef.current.strokeStyle = selectedColor;
+         canvasContextRef.current.lineWidth = lineWidth;
       }
-   }, [selectedColor]);
+   }, [selectedColor, lineWidth]);
 
    return (
       <div className="min-h-screen h-24 rounded-lg  bg-indigo-100">

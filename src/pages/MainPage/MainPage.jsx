@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CanvasBoard from '../../components/Canvasboard/Canvasboard';
 import Navbar from '../../components/Navbar/Navbar';
 import PaintDataContext from '../../context/PaintDataContext';
 
 const MainPage = () => {
    const [selectedColor, setSelectedColor] = useState('black');
+   const [lineWidth, setLineWidth] = useState(2);
+   const [eraserActive, setEraserActive] = useState(false);
    return (
       <div className="bg-gradient-to-b min-h-screen from-indigo-200">
          <PaintDataContext.Provider
             value={{
                selectedColor,
                setSelectedColor,
+               lineWidth,
+               setLineWidth,
+               setEraserActive,
+               eraserActive,
             }}
          >
             <Navbar />

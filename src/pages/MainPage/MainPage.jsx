@@ -7,6 +7,7 @@ const MainPage = () => {
    const [selectedColor, setSelectedColor] = useState('black');
    const [lineWidth, setLineWidth] = useState(2);
    const [eraserActive, setEraserActive] = useState(false);
+   const [resetCanvas, setResetCanvas] = useState(true);
    return (
       <div className="bg-gradient-to-b min-h-screen from-indigo-200">
          <PaintDataContext.Provider
@@ -17,6 +18,8 @@ const MainPage = () => {
                setLineWidth,
                setEraserActive,
                eraserActive,
+               resetCanvas,
+               setResetCanvas,
             }}
          >
             <Navbar />

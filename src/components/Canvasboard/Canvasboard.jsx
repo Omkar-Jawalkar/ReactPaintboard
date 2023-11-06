@@ -6,7 +6,7 @@ const Canvasboard = () => {
    const canvasContextRef = useRef(null);
    const [drawing, setDrawing] = useState(false);
 
-   const { selectedColor, lineWidth, eraserActive } =
+   const { selectedColor, lineWidth, eraserActive, resetCanvas } =
       useContext(PaintDataContext);
 
    const startDrawing = ({ nativeEvent }) => {
@@ -73,7 +73,6 @@ const Canvasboard = () => {
       if (canvasContextRef.current) {
          canvasContextRef.current.strokeStyle = selectedColor;
          canvasContextRef.current.lineWidth = lineWidth;
-         setToDraw();
       }
    }, [selectedColor, lineWidth]);
 
@@ -85,8 +84,19 @@ const Canvasboard = () => {
       }
    }, [eraserActive]);
 
+   useEffect(() => {
+      if (canvasContextRef.current && canvasRef) {
+         canvasContextRef.current.clearRect(
+            0,
+            0,
+            canvasRef.current.width,
+            canvasRef.current.height,
+         );
+      }
+   }, [resetCanvas]);
+
    return (
-      <div className="min-h-screen h-24 rounded-lg  bg-indigo-100">
+      <div className="min-h-screen h-24 rounded-lg  bg-white-100">
          <canvas
             ref={canvasRef}
             className={`border-indigo-200 border-1 ${

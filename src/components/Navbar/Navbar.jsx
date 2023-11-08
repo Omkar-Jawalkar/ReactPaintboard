@@ -20,13 +20,13 @@ const Navbar = () => {
          {/* LEFT SIDE */}
          <div className="flex cursor-pointer space-x-1 ">
             <div className="flex relative">
-               <span className=" font-semibold text-lg text-purple-600">
+               <span className=" font-semibold text-lg  bg-gradient-to-r text-transparent bg-clip-text  from-indigo-800 to-violet-700">
                   Magic
                </span>
                <WiStars className="text-4xl absolute top-[-0.6rem] left-[12.9rem] text-purple-600 " />
             </div>
 
-            <h1 className="text-3xl text-purple-600 font-bold transition duration-300 ease-in-out">
+            <h1 className="text-3xl text-transparent bg-gradient-to-r  from-indigo-800 to-violet-700 bg-clip-text font-bold ">
                PaintBoard
             </h1>
          </div>

@@ -2,6 +2,9 @@
 
 Welcome to the React Paintboard! 🎉 This is a fun and interactive web application that allows users to create their own digital paintings and play with magical balls. 🔮 Built with React, this project utilizes powerful libraries like Framer Motion for smooth animations and react-confetti for celebratory confetti effects. 🎊
 
+## Usage
+
+https://github.com/Omkar-Jawalkar/ReactPaintboard/assets/82781128/3619639d-3d6d-402e-b205-5e01009e6d3b
 
 
 ## Features ✨

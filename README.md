@@ -32,6 +32,12 @@ git clone https://github.com/your-username/react-paintboard.git
 ```bash
 cd react-paintboard
 ```
+> If you have docker installed then run these commands
+```bash
+docker build -t paintboard .
+docker run -p 3000:3000 paintboard
+```
+
 
 3. Install the dependencies: 📦
 
